@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"os"
@@ -33,7 +32,6 @@ func worker(host string, quit <-chan int, selfKill chan<- int) {
 				if strings.ContainsAny(a, ".") {
 					containsARecord = true
 				}
-				wgDone = true
 			}
 			if !containsARecord {
 				log.Println("Did not get an A record")
@@ -77,7 +75,7 @@ func main() {
 	// And we don't want to exit, we'll leave it sleeping forever,
 	// so that if we can set restartPolicy = always and restart the pod
 	// By simply running: oc delete pod <pod name>
-	fmt.Println("Terminating goroutines and waiting")
+	log.Println("Terminating goroutines and waiting")
 	for {
 		time.Sleep(time.Hour)
 	}
